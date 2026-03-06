@@ -36,7 +36,7 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <header className="sticky top-0 z-10 border-b bg-background/95 backdrop-blur">
+      <header className="sticky top-0 z-10 border-b bg-background/95 backdrop-blur print:static print:backdrop-blur-none">
         <div className="mx-auto max-w-5xl px-4 py-3">
           <h1 className="text-base font-bold">SESシミュレーター</h1>
           <p className="text-xs text-muted-foreground">令和7年度（2025年度）版 · SES会社員向け</p>
@@ -44,17 +44,25 @@ export default function HomePage() {
       </header>
 
       <main className="mx-auto max-w-5xl px-4 py-6">
-        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_400px]">
-          <div className="rounded-lg border bg-card p-5">
+        <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_400px] print:grid-cols-1">
+          <div className="rounded-lg border bg-card p-5 print:hidden">
             <SesSimulatorForm input={input} onChange={setInput} />
           </div>
           <div>
+            <div className="print:hidden mb-3 flex justify-end">
+              <button
+                onClick={() => window.print()}
+                className="inline-flex items-center gap-1.5 rounded-md border bg-background px-3 py-1.5 text-xs font-medium shadow-sm hover:bg-accent transition-colors"
+              >
+                PDFで保存
+              </button>
+            </div>
             <SesResultCard result={result} />
           </div>
         </div>
       </main>
 
-      <footer className="text-center text-xs text-muted-foreground py-6 border-t mt-8">
+      <footer className="text-center text-xs text-muted-foreground py-6 border-t mt-8 print:hidden">
         <p>© 2025 SESシミュレーター · 計算結果はあくまで概算です</p>
       </footer>
     </div>
