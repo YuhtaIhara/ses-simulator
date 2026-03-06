@@ -106,10 +106,10 @@ export function SesSimulatorForm({ input, onChange }: Props) {
   return (
     <div className="space-y-6">
       <section>
-        <SectionLabel>基本入力</SectionLabel>
+        <SectionLabel>基本情報</SectionLabel>
         <div className="space-y-5">
           <MoneySlider
-            label="単金（月額）"
+            label="月単価"
             value={input.monthlyUnit}
             min={300_000}
             max={2_000_000}
@@ -142,7 +142,7 @@ export function SesSimulatorForm({ input, onChange }: Props) {
 
           <div className="flex items-center justify-between">
             <Label>
-              40歳以上（介護保険）
+              40歳以上
               <InfoTip>40〜64歳は社会保険に介護保険分が加算されます。</InfoTip>
             </Label>
             <Switch checked={input.age40plus} onCheckedChange={(v) => setRoot("age40plus", v)} />

@@ -88,6 +88,15 @@ export function SesResultCard({ result }: Props) {
           <p className="text-xs font-medium">合計負担（社保+税）</p>
           <Row label="" amount={result.taxAndSocialTotal} highlight />
 
+          {(result.annualIdeco > 0 || result.annualNisa > 0) && (
+            <>
+              <Separator className="my-2" />
+              <p className="text-xs text-muted-foreground mb-1">積立（将来受取）</p>
+              {result.annualIdeco > 0 && <DeductionRow label="iDeCo" amount={result.annualIdeco} />}
+              {result.annualNisa > 0 && <DeductionRow label="新NISA" amount={result.annualNisa} />}
+            </>
+          )}
+
           <Separator className="my-3" />
           <Row label="手取り年収" amount={result.netAnnual} highlight />
           <Row label="月額平均" amount={result.netMonthlyAvg} muted />

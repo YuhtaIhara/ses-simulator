@@ -358,6 +358,8 @@ export function calculateSes(input: SesInput): SesResult {
     netMonthlyAvg,
     benefitAnnualTotal,
     adjustedNetAnnual,
+    annualNisa: input.asset.nisaAnnual,
+    annualIdeco: idecoAnnual,
     future,
     estimatedAnnualPension,
     pensionYears,

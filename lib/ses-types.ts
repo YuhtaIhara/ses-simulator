@@ -83,6 +83,8 @@ export interface SesResult {
   netMonthlyAvg: number
   benefitAnnualTotal: number
   adjustedNetAnnual: number
+  annualNisa: number
+  annualIdeco: number
   future: AssetFuture
   estimatedAnnualPension: number
   pensionYears: number

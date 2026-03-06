@@ -37,7 +37,7 @@ export default function HomePage() {
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-10 border-b bg-background/95 backdrop-blur">
         <div className="mx-auto max-w-5xl px-4 py-3">
-          <h1 className="text-base font-bold">SES手取りシミュレーター</h1>
+          <h1 className="text-base font-bold">SESシミュレーター</h1>
           <p className="text-xs text-muted-foreground">令和7年度（2025年度）版 · SES会社員向け</p>
         </div>
       </header>
@@ -54,7 +54,7 @@ export default function HomePage() {
       </main>
 
       <footer className="text-center text-xs text-muted-foreground py-6 border-t mt-8">
-        <p>© 2025 SES手取りシミュレーター · 計算結果はあくまで概算です</p>
+        <p>© 2025 SESシミュレーター · 計算結果はあくまで概算です</p>
       </footer>
     </div>
   )
