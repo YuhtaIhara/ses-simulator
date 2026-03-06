@@ -11,6 +11,7 @@ export interface SesAssetInput {
   nisaAnnual: number
   idecoAnnual: number
   horizonYears: number
+  pensionReceiveYears: number
 }
 
 export interface SesInput {
@@ -88,5 +89,9 @@ export interface SesResult {
   future: AssetFuture
   estimatedAnnualPension: number
   pensionYears: number
+  pensionReceiveYears: number
+  pensionTotalLifetime: number
+  lifetimeTotal3: number
+  lifetimeTotal5: number
   furusatoMax: number
 }

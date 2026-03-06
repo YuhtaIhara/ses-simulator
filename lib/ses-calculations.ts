@@ -341,6 +341,10 @@ export function calculateSes(input: SesInput): SesResult {
   const kisoNenkin = Math.floor(816_000 * pensionYears / 40)
   const koseiNenkin = Math.floor(socialBreakdown.pensionGrade.standardMonthly * 5.481 / 1000 * 12 * pensionYears)
   const estimatedAnnualPension = kisoNenkin + koseiNenkin
+  const pensionReceiveYears = Math.max(1, input.asset.pensionReceiveYears)
+  const pensionTotalLifetime = estimatedAnnualPension * pensionReceiveYears
+  const lifetimeTotal3 = pensionTotalLifetime + future.totalFuture3
+  const lifetimeTotal5 = pensionTotalLifetime + future.totalFuture5
 
   return {
     monthlyPersonnelBudget,
@@ -363,6 +367,10 @@ export function calculateSes(input: SesInput): SesResult {
     future,
     estimatedAnnualPension,
     pensionYears,
+    pensionReceiveYears,
+    pensionTotalLifetime,
+    lifetimeTotal3,
+    lifetimeTotal5,
     furusatoMax,
   }
 }

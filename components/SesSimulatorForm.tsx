@@ -249,6 +249,27 @@ export function SesSimulatorForm({ input, onChange }: Props) {
               </div>
             </div>
           )}
+
+          <div>
+            <div className="mb-2 flex items-center justify-between">
+              <Label>
+                年金受給期間
+                <InfoTip>65歳から何年間受給するかの想定。年金総受取額の計算に使用します。平均寿命ベースだと20年前後が目安です。</InfoTip>
+              </Label>
+              <span className="text-lg font-bold tabular-nums">{input.asset.pensionReceiveYears}年</span>
+            </div>
+            <Slider
+              value={[input.asset.pensionReceiveYears]}
+              min={10}
+              max={35}
+              step={1}
+              onValueChange={([v]) => setAsset("pensionReceiveYears", v)}
+            />
+            <div className="mt-1 flex justify-between text-xs text-muted-foreground">
+              <span>10年</span>
+              <span>35年</span>
+            </div>
+          </div>
         </div>
       </section>
     </div>

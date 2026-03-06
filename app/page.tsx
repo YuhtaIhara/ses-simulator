@@ -26,6 +26,7 @@ const DEFAULT_INPUT: SesInput = {
     nisaAnnual: 0,
     idecoAnnual: 0,
     horizonYears: 20,
+    pensionReceiveYears: 20,
   },
 }
 

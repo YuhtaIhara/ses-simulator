@@ -126,6 +126,14 @@ export function SesResultCard({ result }: Props) {
               {formatManYen(result.estimatedAnnualPension)}<span className="text-xs font-normal text-muted-foreground">/年</span>
             </span>
           </div>
+          <div className="flex justify-between items-start text-sm">
+            <div>
+              <span>年金総受取（{result.pensionReceiveYears}年間）</span>
+            </div>
+            <span className="tabular-nums font-semibold text-violet-700 dark:text-violet-300">
+              {formatManYen(result.pensionTotalLifetime)}
+            </span>
+          </div>
 
           {hasAssets && (
             <>
@@ -173,7 +181,22 @@ export function SesResultCard({ result }: Props) {
               </p>
             </>
           )}
-          <p className="text-xs text-muted-foreground pt-2 border-t">年金は令和7年度額・運用年数を加入年数として概算。実際の受取額は加入履歴・物価スライドにより変動します。</p>
+
+          <Separator />
+          <div className="flex justify-between items-start text-sm font-semibold">
+            <span>生涯受取合計</span>
+            <div className="text-right tabular-nums">
+              <div className="text-violet-700 dark:text-violet-300">
+                {formatManYen(result.lifetimeTotal3)}{hasAssets && <span className="text-xs font-normal text-muted-foreground ml-1">（年利3%）</span>}
+              </div>
+              {hasAssets && (
+                <div className="text-xs font-normal text-muted-foreground">
+                  {formatManYen(result.lifetimeTotal5)}<span className="ml-1">（年利5%）</span>
+                </div>
+              )}
+            </div>
+          </div>
+          <p className="text-xs text-muted-foreground pt-1 border-t">年金は令和7年度額・運用年数を加入年数として概算。実際の受取額は加入履歴・物価スライドにより変動します。</p>
         </CardContent>
       </Card>
 
