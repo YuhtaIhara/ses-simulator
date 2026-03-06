@@ -18,6 +18,8 @@ export interface SesInput {
   marginRate: number
   prefectureCode: number
   age40plus: boolean
+  dependents: number
+  spouseDeduction: boolean
   bonusAnnual: number
   benefits: SesBenefitsInput
   asset: SesAssetInput
@@ -84,4 +86,5 @@ export interface SesResult {
   future: AssetFuture
   estimatedAnnualPension: number
   pensionYears: number
+  furusatoMax: number
 }

@@ -11,6 +11,8 @@ const DEFAULT_INPUT: SesInput = {
   marginRate: 0.2,
   prefectureCode: 13,
   age40plus: false,
+  dependents: 0,
+  spouseDeduction: false,
   bonusAnnual: 0,
   benefits: {
     commuteAllowanceAnnual: 0,

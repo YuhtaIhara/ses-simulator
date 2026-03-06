@@ -141,8 +141,37 @@ export function SesSimulatorForm({ input, onChange }: Props) {
           </div>
 
           <div className="flex items-center justify-between">
-            <Label>40歳以上（介護保険）</Label>
+            <Label>
+              40歳以上（介護保険）
+              <InfoTip>40〜64歳は社会保険に介護保険分が加算されます。</InfoTip>
+            </Label>
             <Switch checked={input.age40plus} onCheckedChange={(v) => setRoot("age40plus", v)} />
+          </div>
+
+          <div>
+            <Label className="mb-2 block">
+              扶養家族人数
+              <InfoTip>扶養控除として1人あたり38万円が課税所得から控除されます。</InfoTip>
+            </Label>
+            <Select
+              value={String(input.dependents)}
+              onValueChange={(v) => setRoot("dependents", Number(v))}
+            >
+              <SelectTrigger><SelectValue /></SelectTrigger>
+              <SelectContent className="max-h-60">
+                {[0, 1, 2, 3, 4].map((n) => (
+                  <SelectItem key={n} value={String(n)}>{n}人</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <Label>
+              配偶者控除
+              <InfoTip>配偶者の年収が103万円以下の場合、課税所得から38万円が控除されます（本人の合計所得900万以下が条件）。</InfoTip>
+            </Label>
+            <Switch checked={input.spouseDeduction} onCheckedChange={(v) => setRoot("spouseDeduction", v)} />
           </div>
         </div>
       </section>

@@ -218,6 +218,20 @@ function kyuyoKojo(gross: number): number {
   return 1_950_000
 }
 
+function getIncomeTaxRate(taxableIncome: number): number {
+  if (taxableIncome <= 0) return 0
+  const rates = [
+    { limit: 1_950_000, rate: 0.05 },
+    { limit: 3_300_000, rate: 0.10 },
+    { limit: 6_950_000, rate: 0.20 },
+    { limit: 9_000_000, rate: 0.23 },
+    { limit: 18_000_000, rate: 0.33 },
+    { limit: 40_000_000, rate: 0.40 },
+    { limit: Infinity, rate: 0.45 },
+  ]
+  return rates.find(r => taxableIncome <= r.limit)!.rate
+}
+
 // 所得税（累進課税 × 復興特別所得税 1.021）
 function calcIncomeTax(taxableIncome: number): number {
   if (taxableIncome <= 0) return 0
@@ -279,9 +293,11 @@ export function calculateSes(input: SesInput): SesResult {
   // 給与所得控除 → 給与所得
   const kyuyoShotoku = Math.max(0, grossAnnualTotal - kyuyoKojo(grossAnnualTotal))
 
-  // 課税所得 = 給与所得 − 基礎控除 − 社会保険（本人）− iDeCo
+  // 課税所得 = 給与所得 − 基礎控除 − 社会保険（本人）− iDeCo − 扶養控除 − 配偶者控除
   const idecoAnnual = Math.max(0, input.asset.idecoAnnual)
-  const taxableIncome = Math.max(0, kyuyoShotoku - BASIC_DEDUCTION_ANNUAL - socialInsurance - idecoAnnual)
+  const dependentsDeduction = Math.max(0, input.dependents) * 380_000
+  const spouseKojo = input.spouseDeduction ? 380_000 : 0
+  const taxableIncome = Math.max(0, kyuyoShotoku - BASIC_DEDUCTION_ANNUAL - socialInsurance - idecoAnnual - dependentsDeduction - spouseKojo)
 
   const incomeTax = calcIncomeTax(taxableIncome)
   const residentTax = Math.floor(taxableIncome * 0.1) + (taxableIncome > 0 ? 5_000 : 0)
@@ -312,6 +328,14 @@ export function calculateSes(input: SesInput): SesResult {
     totalFuture5: futureValueWithCap(input.asset.nisaAnnual, 0.05, horizonYears, NISA_CAP) + futureValue(idecoAnnual, 0.05, horizonYears),
   }
 
+  // ふるさと納税目安上限
+  const residentTaxShotoku = taxableIncome * 0.1
+  const itRate = getIncomeTaxRate(taxableIncome)
+  const furusatoDenominator = 0.9 - itRate * 1.021 - 0.1
+  const furusatoMax = furusatoDenominator > 0
+    ? Math.floor(residentTaxShotoku * 0.2 / furusatoDenominator) + 2_000
+    : 0
+
   // 年金見込み（horizonYearsを厚生年金加入年数として概算）
   const pensionYears = Math.min(horizonYears, 40)
   const kisoNenkin = Math.floor(816_000 * pensionYears / 40)
@@ -337,5 +361,6 @@ export function calculateSes(input: SesInput): SesResult {
     future,
     estimatedAnnualPension,
     pensionYears,
+    furusatoMax,
   }
 }
